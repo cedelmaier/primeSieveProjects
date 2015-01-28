@@ -1,3 +1,9 @@
 All of these prime finders are either based on the sieve of 
 eratosthenes, or on some other parallel method.  Haven't
 quite decided yet.
+
+Thus far have implemented
+Ruby
+Python
+Go
+Rust(non-working)
