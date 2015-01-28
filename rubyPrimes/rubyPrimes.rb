@@ -4,6 +4,12 @@ require 'optparse'
 require 'benchmark'
 require_relative 'eratosthenes'
 
+#command line requires that a flag be passed
+#otherwise the default of 2^10 for the limit
+#will be used
+#
+#Usage: ./rubyPrimes.rb -n 24
+
 options = {:limit => 4}
 parser = OptionParser.new do |opts|
     opts.banner = "Usage: rubyPrimes.rb [limit]"
@@ -35,12 +41,12 @@ Benchmark.bmbm {|x|
         pc.push(pnums.length)
         maxprime.push(pnums[-1])
     }
-    x.report("eratosthenes built in") {
-        pnums = eratosthenesBuiltin(slimit)
-
-        pc.push(pnums.length)
-        maxprime.push(pnums[-1])
-    }
+#    x.report("eratosthenes built in") {
+#        pnums = eratosthenesBuiltin(slimit)
+#
+#        pc.push(pnums.length)
+#        maxprime.push(pnums[-1])
+#    }
 }
 
 pc.each{|p| printf("Primes Counted: %d\n", p)}

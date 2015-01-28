@@ -3,6 +3,7 @@
 import sys
 import time
 
+#Basic implementation
 def eratosthenes(n):
     multiples = set()
     for i in range(2, n+1):
@@ -10,6 +11,7 @@ def eratosthenes(n):
             yield i
             multiples.update(range(i*i, n+1, i))
 
+#A different take on the basic implementation thinking about it for a little bit
 def eratosthenes2(limit):
     is_prime = [False] * 2 + [True] * (limit - 1)
     for n in xrange(int(limit**0.5 + 1.5)):  #stop at ``sqrt(limit``
@@ -19,6 +21,7 @@ def eratosthenes2(limit):
     for i in xrange(limit + 1):
         if is_prime[i]: yield i
 
+#Odds only generator, basically a 2 wheel
 def iprimes2(limit):
     yield 2
     if limit < 3: return
@@ -60,6 +63,8 @@ def primes235(limit):
 def runSieve(name, limit):
     lprimes = list()
     starttime = time.time()
+    if name == "eratosthenes":
+        lprimes = list(eratosthenes2(limit))
     if name == "eratosthenes2":
         lprimes = list(eratosthenes2(limit))
     elif name == "iprimes2":
@@ -83,6 +88,9 @@ def main(argv):
 
     sys.stdout.write("Limit: " + str(limit) + "\n")
     sys.stdout.flush()
+    
+    (enum, emax, etime) = runSieve("eratosthenes", limit)
+    displayResults("Eratosthenes", enum, emax, etime)
 
     (e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
     displayResults("Eratosthenes2", e2num, e2max, e2time)

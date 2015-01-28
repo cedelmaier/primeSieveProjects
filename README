@@ -1,9 +1,16 @@
 All of these prime finders are either based on the sieve of 
 eratosthenes, or on some other parallel method.  Haven't
-quite decided yet.
+quite decided yet.  They are still works in progress, and I 
+recommend NOT using any limit generator more than 25.  The upper 
+limit of the calculation is 2^n, and I would love getting it to
+the point that it could find the primes below 1 billions, but
+it's not there yet - requires too much memory.
 
 Thus far have implemented
 Ruby
 Python
 Go
 Rust(non-working)
+
+Almost all working code taken from 
+http://rosettacode.org/wiki/Sieve_of_Eratosthenes

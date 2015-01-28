@@ -1,3 +1,5 @@
+#First sieve of eratosthenes, based on original 
+# sieve method
 def eratosthenes(n)
     nums = [nil, nil, *2..n]
     (2..Math.sqrt(n)).each do |i|
@@ -6,6 +8,10 @@ def eratosthenes(n)
     nums.compact
 end
 
+#Second method taken from rosettacode.com
+#Based on a 23 wheel,
+#Skips every even number, and every number
+#Divisible by 3
 def eratosthenes2(n)
     #For odd i, if i is prime, nums[i >> 1] is true
     #Set false for all multiples of 3.
@@ -48,6 +54,8 @@ def eratosthenes2(n)
     primes
 end
 
+#Ruby also provides a built in version, much slower unless it's already
+#Been initialized
 def eratosthenesBuiltin(n)
     require 'prime'
     primes = Prime::EratosthenesGenerator.new.take_while {|i| i <= n}

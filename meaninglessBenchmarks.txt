@@ -1,0 +1,30 @@
+These benchmarks are meaningless, as between computers with multicore
+capabilities, different speeds and instructions sets, compilers, and on
+it really doesn't matter.  So here's mine.
+
+OSX Yosemite
+2.66 GHz Intel Core 2 Duo, 4MB RAM (It's from 2009, don't make fun of me)
+Limit: 2^25 = 33554432 
+--------------------------------------------------------------------------------
+        Basic Algorithm    2wheel(odds only)    23wheel      235wheel
+Ruby             16.79s                          4.829s
+Python           12.56s                3.88s                   2.248s
+Go                1.39s               0.564s                   0.431s
+
+So for version 1.0 of this test, it shows that it pays to compile your language.
+Really it is somewhat unfair, as there is no way that ruby or python could compete
+with something that could optimize away some of the loop structures needed for
+the wheel classes.
+
+Apparemtly ruby sucks at doing this kind of number crunching, since it's 23 wheel
+can't beat python's odds-only wheel.  Prbably too many complications, making it 
+too difficult.  The fall from grace between the interpreted languages and a real
+compiled language shouldn't surprise anyone.  The basic algorithm is begging for
+compiler optimizations.  The odds only wheel is also a huge boost in performance.
+Not really much to talk about there.  The 235wheel was interesting, as we see that
+it beats the python version handily, but is only 30% faster, compared to the
+speedups we saw on the other two versions.  This is something I would like to explore
+more of in C/C++ land, since I think there are compiler optimizations that Go misses, 
+so it doesn't get it's huge advantage over Ruby and Python.
+
+Fun though.
