@@ -50,7 +50,7 @@ primeResults eratosthenes(long limit) {
     //1 is true
     //C doesn't like large arrays
     //alocate on the heap!
-    long* nums = (long*)malloc(limit * sizeof(long));
+    char* nums = (char*)malloc(limit * sizeof(char));
     for(i = 0; i < limit; i++) {
         nums[i] = 1;
     }

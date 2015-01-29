@@ -10,6 +10,7 @@ Limit: 2^25 = 33554432
 Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
 Go                1.39s               0.564s                   0.431s
+C                 1.23s
 
 So for version 1.0 of this test, it shows that it pays to compile your language.
 Really it is somewhat unfair, as there is no way that ruby or python could compete
@@ -23,8 +24,16 @@ compiled language shouldn't surprise anyone.  The basic algorithm is begging for
 compiler optimizations.  The odds only wheel is also a huge boost in performance.
 Not really much to talk about there.  The 235wheel was interesting, as we see that
 it beats the python version handily, but is only 30% faster, compared to the
-speedups we saw on the other two versions.  This is something I would like to explore
-more of in C/C++ land, since I think there are compiler optimizations that Go misses, 
-so it doesn't get it's huge advantage over Ruby and Python.
+speedups we saw on the other two versions.
+
+Having just completely the implementation of the C basic algorithm, I ran into
+some gotcha's along the way.  Using normal arrays on the stack isn't possible
+for the amount of data that we are moving around.  However, having done similar
+problems in biophysics, I remembered we can use the heap with malloc.  This
+new version runs much faster, especially moving to char's instead of ints.  It
+is barely faster than the Go basic version, and this is with full optimization
+turned on (-O3).  The unoptimized version doesn't run that bad, though, so there
+probably isn't much room for optimizing things.  This was also with the clang
+compiler.  Changing to gcc4.9 doesn't change this base result particularly.
 
 Fun though.
