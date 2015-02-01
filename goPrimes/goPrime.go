@@ -101,6 +101,7 @@ func iprimes2(limit uint64) (uint64, uint64) {
 			//fmt.Printf("p: %v, s: %v\n", p, s)
 			//Get every other item, starting at s stepping by p
 			for j := s; j < uint64(len(buf)); j += p {
+				//fmt.Printf("Setting %v to 0\n", j)
 				buf[j] = false
 			}
 			//fmt.Printf("buf: %v\n", buf)

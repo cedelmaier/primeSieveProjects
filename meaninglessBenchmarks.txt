@@ -10,30 +10,41 @@ Limit: 2^25 = 33554432
 Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
 Go                1.39s               0.564s                   0.431s
-C                 1.23s
+C                 1.99s               0.659s                   
 
-So for version 1.0 of this test, it shows that it pays to compile your language.
+So for version 2.0 of this test, it shows that it pays to compile your language.
 Really it is somewhat unfair, as there is no way that ruby or python could compete
 with something that could optimize away some of the loop structures needed for
 the wheel classes.
 
-Apparemtly ruby sucks at doing this kind of number crunching, since it's 23 wheel
-can't beat python's odds-only wheel.  Prbably too many complications, making it 
-too difficult.  The fall from grace between the interpreted languages and a real
-compiled language shouldn't surprise anyone.  The basic algorithm is begging for
-compiler optimizations.  The odds only wheel is also a huge boost in performance.
-Not really much to talk about there.  The 235wheel was interesting, as we see that
-it beats the python version handily, but is only 30% faster, compared to the
-speedups we saw on the other two versions.
+Apparently ruby sucks at doing this kind of number crunching, since it's 23 wheel
+can't beat python's odds-only wheel.  Probably too many complications, making it 
+too difficult.  It's also really weird, since it's almost a wheel23, but doesn't
+let the outermost loop ignore multiples of 3.  Strange in my book.  This was also
+my first implementation, so it holds a special place in my heart.
 
-Having just completely the implementation of the C basic algorithm, I ran into
-some gotcha's along the way.  Using normal arrays on the stack isn't possible
-for the amount of data that we are moving around.  However, having done similar
-problems in biophysics, I remembered we can use the heap with malloc.  This
-new version runs much faster, especially moving to char's instead of ints.  It
-is barely faster than the Go basic version, and this is with full optimization
-turned on (-O3).  The unoptimized version doesn't run that bad, though, so there
-probably isn't much room for optimizing things.  This was also with the clang
-compiler.  Changing to gcc4.9 doesn't change this base result particularly.
+Python's performance is quite a bit better than Ruby's.  It gies about a 33% increse 
+in the throughput, and the odds only very beats the 23 wheel of Ruby's.  Comparing 
+the basic algorithm with the 235 whee optimization is over a 300% speedup (322.5% or so).
+The 235 wheel is also much more compilcated to code, as it requires a lot of special 
+attention to very subtle tricks.
+
+So far we have only talked about interpreted languages.  Now we move onto the 
+languages that were built for this sort of problem, compiled and optimized.  
+We have our algorithms in hand, so we should try one of the more forgiving compiled
+languages.  I chose Go.
+
+Coding the entire thing in go went better than I though, although there was some
+cross eyes when I was converting between float64, int64, uint64, you get the 
+picture.  Go is strongly typed, so these conversions are necesssary for the 
+compiler to know what is going on, and allow the compile to decide what a lot
+of the variable types are at runtime.  That being said, there were lots of problems
+converting the two complex algorithms into Go.  However, the results were spectacular!
+We see a 12x performance increase at the basic level, closer to 3x for the odds-only
+implementation, and we see around a 5.5x boost in performance on the 235 wheel.  Whoa.
+
+Still talking about Go, there are some things that just can't be beat. The type 
+inference is a saver (as we will see when we get to C).  I could probably make this 
+even faster by moving the static arrays 
 
 Fun though.
