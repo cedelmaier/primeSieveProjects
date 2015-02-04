@@ -8,7 +8,10 @@ back a structure instead of a tuple.
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <memory.h>
 #include <time.h>
+
+static const long modPrimes[] = {7, 11, 13, 17, 19, 23, 29, 31};
 
 typedef struct {
     long pc;
@@ -65,9 +68,7 @@ primeResults eratosthenes(long limit) {
     //C doesn't like large arrays
     //alocate on the heap!
     char* nums = (char*)malloc(limit * sizeof(char));
-    for(i = 0; i < limit; i++) {
-        nums[i] = 1;
-    }
+    memset(nums, 1, limit);
 
     for(i = 2; i < sqrt(limit); i++) {
         for(j = i*i; j < limit; j += i) {
@@ -90,37 +91,40 @@ primeResults eratosthenes(long limit) {
 }
 
 primeResults iprimes2(long limit) {
-    long i, j;
+    volatile long pc, maxprime;
     long lmtbf = (limit - 3) / 2;
     primeResults results;
     results.pc++;
 
+    pc = 1;
+    maxprime = 0;
+
     //Declar buffer on the heap!
     char* buf = (char*)malloc((lmtbf+1)*sizeof(char));
-
-    for(i = 0; i < lmtbf+1; i++) {
-        buf[i] = 1;
-    }
+    memset(buf,1,lmtbf+1);
     
-    for(i = 0; i < ((long)sqrt(limit) - 3) / 2 + 1; i++) {
+    for(long i = 0; i < ((long)sqrt(limit) - 3) / 2 + 1; i++) {
         //printf("outeri: %ld\n", i);
         if(buf[i]) {
             long p = i + i + 3;
             long s = p * (i + 1) + i;
             //printf("p: %ld, s: %ld\n", p, s);
-            for(j = s; j < (lmtbf + 1); j += p) {
+            for(long j = s; j < (lmtbf + 1); j += p) {
                 //printf("Setting %d j to off\n", j);
                 buf[j] = 0;
             }
         }
     }
 
-    for(i = 0; i < lmtbf+1; i++) {
+    for(long i = 0; i < lmtbf+1; i++) {
         if(buf[i]) {
-            results.pc++;
-            results.maxprime = i + i + 3;
+            pc++;
+            maxprime = i + i + 3;
         }
     }
+
+    results.pc = pc;
+    results.maxprime = maxprime;
 
     free(buf);
     return(results);
