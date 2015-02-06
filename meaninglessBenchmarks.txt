@@ -11,7 +11,8 @@ Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
 Go                1.39s               0.564s                   0.431s
 C                 1.30s               0.546s                   0.349s
-C(-O3)            1.24s               0.535s                   0.352s         
+C(-O3)            1.24s               0.535s                   0.352s
+--------------------------------------------------------------------------------         
 
 So for version 2.0 of this test, it shows that it pays to compile your language.
 Really it is somewhat unfair, as there is no way that ruby or python could compete
@@ -62,5 +63,19 @@ For now, hands down, the fastest language is C.  But again, I was very impressed
 with how Go held up again it.  I might try pushing the compiled languages to higher
 limits and checking the speeds, but that could wind up breaking a lot of things as
 we get cloesr to the 32bit barrier.
+
+Here are the results for the two compiled languages at the gigabyte limit.
+Limit: 2^30 = 1GB 
+--------------------------------------------------------------------------------
+        Basic Algorithm    2wheel(odds only)    23wheel      235wheel
+Go                53.0s                22.0s                    17.4s
+C(-O3)            48.3s                21.3s                    15.2s 
+--------------------------------------------------------------------------------
+
+So they still track together.  I think that this is about the extent that the exercise
+can be taken to, as at this point we're just adding more languages, and I am not
+going to work out the 2357wheel for anything.  About the only other thing that I would
+add is Rust when they get a Beta version working.  C++ should track almost exactly
+as C.  It really is cool to see that Go works that well.
 
 Fun though.
