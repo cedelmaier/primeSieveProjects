@@ -1,5 +1,5 @@
 CC = gcc
-CPPFLAGS = -g -Wall -Wextra -O3
+CPPFLAGS = -g -Wall -Wextra -std=c11 -O3
 
 cPrimes: cPrimes.o
 	$(CC) cPrimes.o -o cPrimes

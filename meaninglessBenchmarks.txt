@@ -10,7 +10,8 @@ Limit: 2^25 = 33554432
 Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
 Go                1.39s               0.564s                   0.431s
-C                 1.99s               0.659s                   
+C                 1.30s               0.546s                   0.349s
+C(-O3)            1.24s               0.535s                   0.352s         
 
 So for version 2.0 of this test, it shows that it pays to compile your language.
 Really it is somewhat unfair, as there is no way that ruby or python could compete
@@ -45,6 +46,21 @@ implementation, and we see around a 5.5x boost in performance on the 235 wheel. 
 
 Still talking about Go, there are some things that just can't be beat. The type 
 inference is a saver (as we will see when we get to C).  I could probably make this 
-even faster by moving the static arrays 
+even faster by declaring the arrays as static variables (which I will get around to)
+and a couple of other things.
+
+C.  This is the one that I wanted to use as a golden standard for the others to be
+measured by.  I was incredibly impressed that Go could keep up with (and beat) C
+in some cases.  I also learned a valuable lesson in implicit vs explicit volatile
+declaration of variables.  The counters that keep track at the end of how many
+primes we've found, and the max one, started out as implicitly non-volatile.
+This was very bad when I went to try the -O3 optimization, because suddenly I was
+reading garbage into my counter value, breaking the project.  By declaring
+them as volatile, I saw a performance hit (duh), but I was getting the right numbers.
+
+For now, hands down, the fastest language is C.  But again, I was very impressed
+with how Go held up again it.  I might try pushing the compiled languages to higher
+limits and checking the speeds, but that could wind up breaking a lot of things as
+we get cloesr to the 32bit barrier.
 
 Fun though.
