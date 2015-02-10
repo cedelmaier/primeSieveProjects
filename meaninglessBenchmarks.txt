@@ -9,6 +9,7 @@ Limit: 2^25 = 33554432
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
 Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
+Java              1.61s               0.559s                   0.386s
 Go                1.39s               0.564s                   0.431s
 C                 1.30s               0.546s                   0.349s
 C(-O3)            1.24s               0.535s                   0.352s
@@ -68,6 +69,7 @@ Here are the results for the two compiled languages at the gigabyte limit.
 Limit: 2^30 = 1GB 
 --------------------------------------------------------------------------------
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
+Java              62.9s                23.0s                    16.3s
 Go                53.0s                22.0s                    17.4s
 C(-O3)            48.3s                21.3s                    15.2s 
 --------------------------------------------------------------------------------
@@ -78,4 +80,9 @@ going to work out the 2357wheel for anything.  About the only other thing that I
 add is Rust when they get a Beta version working.  C++ should track almost exactly
 as C.  It really is cool to see that Go works that well.
 
-Fun though.
+Going back, I used the C implementation to write a fast Java implementation.  I was
+very impressed with the results of Java, as it was basically as fast as the fully
+compiled languages.
+
+Fun though.  I'm looking forward to moving to a different machine and seeing the results
+there.
