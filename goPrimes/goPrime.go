@@ -36,6 +36,10 @@ func main() {
 	fmt.Printf("\tPrimes counted: %v\n", pc)
 	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
 
+	pc, maxprime = eratosthenes32(limit)
+	fmt.Printf("\tPrimes counted: %v\n", pc)
+	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
+
 	pc, maxprime = iprimes2(limit)
 	fmt.Printf("\tPrimes counted: %v\n", pc)
 	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
@@ -78,6 +82,42 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 	pc -= 2
 
 	return pc, maxprime
+}
+
+func eratosthenes32(limit_64 uint64) (uint64, uint64) {
+	defer timeTrack(time.Now(), "Eratosthenes32")
+
+	limit := uint32(limit_64)
+	nums := make([]bool, limit) //creates a false array
+	for i := range nums {
+		nums[i] = true
+	}
+	nums[0] = true
+	nums[1] = true
+
+	for i := uint32(2); i < uint32(math.Sqrt(float64(limit))); i++ {
+		//fmt.Printf("\ti = %v\n", i)
+		for j := uint32(i * i); j < limit; j += i {
+			//fmt.Printf("\t\tj = %v\n", j)
+			if nums[i] {
+				nums[j] = false
+			}
+		}
+	}
+
+	pc, maxprime := uint32(0), uint32(0)
+
+	for n, num := range nums {
+		if num {
+			pc++
+			maxprime = uint32(n)
+		}
+	}
+
+	//remove the first two from pc
+	pc -= 2
+
+	return uint64(pc), uint64(maxprime)
 }
 
 func iprimes2(limit uint64) (uint64, uint64) {

@@ -39,6 +39,15 @@ def iprimes2(limit):
     for i in xrange(lmtbf + 1):
         if buf[i]: yield(i + i + 3)
 
+#23wheel
+def primes23(limit):
+    nums = [true, false, true] * ((limit + 5) / 6)
+    nums[0] = false     #1 is not prime.
+    nums[1] = true      #3 is prime.
+
+    i = 5
+    
+
 def primes235(limit):
     yield 2; yield 3; yield 5
     if limit < 7: return
