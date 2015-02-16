@@ -1,0 +1,8 @@
+dmd -run dPrimres.d -n 10
+    Runs the program in an interpreter basically
+
+dmd -vgc dPrimes.d
+    Shows where garbage collected stuff is
+
+dmd -O -release -inline -boundscheck=off -vgc dPrimes.d
+    Full optimization

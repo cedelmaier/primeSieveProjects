@@ -36,9 +36,9 @@ func main() {
 	fmt.Printf("\tPrimes counted: %v\n", pc)
 	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
 
-	pc, maxprime = eratosthenes32(limit)
-	fmt.Printf("\tPrimes counted: %v\n", pc)
-	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
+	//pc, maxprime = eratosthenes32(limit)
+	//fmt.Printf("\tPrimes counted: %v\n", pc)
+	//fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
 
 	pc, maxprime = iprimes2(limit)
 	fmt.Printf("\tPrimes counted: %v\n", pc)
