@@ -13,6 +13,7 @@ Java              1.61s               0.559s                   0.386s
 Go                1.39s               0.564s                   0.431s
 C                 1.30s               0.546s                   0.349s
 C(-O3)            1.24s               0.535s                   0.352s
+D                 1.26s               0.535s
 --------------------------------------------------------------------------------         
 
 So for version 2.0 of this test, it shows that it pays to compile your language.
@@ -69,9 +70,10 @@ Here are the results for the two compiled languages at the gigabyte limit.
 Limit: 2^30 = 1GB 
 --------------------------------------------------------------------------------
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
-Java              62.9s                23.0s                    16.3s
-Go                53.0s                22.0s                    17.4s
-C(-O3)            48.3s                21.3s                    15.2s 
+Java              61.9s                21.7s                    15.5s
+Go                52.9s                21.9s                    17.2s
+C(-O3)            48.2s                21.2s                    15.2s 
+D                 48.9s                21.3s
 --------------------------------------------------------------------------------
 
 So they still track together.  I think that this is about the extent that the exercise
