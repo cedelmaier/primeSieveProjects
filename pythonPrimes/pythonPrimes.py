@@ -41,12 +41,43 @@ def iprimes2(limit):
 
 #23wheel
 def primes23(limit):
-    nums = [true, false, true] * ((limit + 5) / 6)
-    nums[0] = false     #1 is not prime.
-    nums[1] = true      #3 is prime.
+    nums = [True, False, True] * ((limit + 5) / 6)
+    nums[0] = False     #1 is not prime.
+    nums[1] = True      #3 is prime.
+
+    print(nums)
 
     i = 5
-    
+    #Strangely, there is no do-while loop in python
+    while True:
+        m = i * i
+        if m > limit:
+            break
+        print("i: " + str(i) + ", m: " + str(m))
+        if nums[i >> 1]:
+            i_times_2 = i << 1
+            i_times_4 = i << 2
+            while m <= limit:
+                nums[m >> 1] = False
+                m += i_times_2
+                nums[m >> 1] = False
+                m += i_times_4  #When i = 5, skip 45, 75, 105, ...
+        i += 2
+        if nums[i >> 1]:
+            m = i * i
+            i_times_2 = i << 1
+            i_times_4 = i << 2
+            while m <= limit:
+                nums[m >> 1] = False
+                m += i_times_4  #When i = 7, skip 63, 105, 147
+                nums[m >> 1] = False
+                m += i_times_2
+        i += 4
+
+    print(nums)
+
+    for j in xrange(len(nums)):
+        if nums[j]: yield(j * 2 + 1)
 
 def primes235(limit):
     yield 2; yield 3; yield 5
@@ -72,12 +103,12 @@ def primes235(limit):
 def runSieve(name, limit):
     lprimes = list()
     starttime = time.time()
-    if name == "eratosthenes":
-        lprimes = list(eratosthenes2(limit))
     if name == "eratosthenes2":
         lprimes = list(eratosthenes2(limit))
     elif name == "iprimes2":
         lprimes = list(iprimes2(limit))
+    elif name == "primes23":
+        lprimes = list(primes23(limit))
     elif name == "primes235":
         lprimes = list(primes235(limit))
     endtime = time.time()
@@ -97,18 +128,18 @@ def main(argv):
 
     sys.stdout.write("Limit: " + str(limit) + "\n")
     sys.stdout.flush()
-    
-    (enum, emax, etime) = runSieve("eratosthenes", limit)
-    displayResults("Eratosthenes", enum, emax, etime)
 
-    (e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
-    displayResults("Eratosthenes2", e2num, e2max, e2time)
+    #(e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
+    #displayResults("Eratosthenes2", e2num, e2max, e2time)
 
-    (ip2num, ip2max, ip2time) = runSieve("iprimes2", limit)
-    displayResults("iprimes2", ip2num, ip2max, ip2time)
+    #(ip2num, ip2max, ip2time) = runSieve("iprimes2", limit)
+    #displayResults("iprimes2", ip2num, ip2max, ip2time)
 
-    (pnum, pmax, ptime) = runSieve("primes235", limit)
-    displayResults("primes235", pnum, pmax, ptime)
+    (p23num, p23max, p23time) = runSieve("primes23", limit)
+    displayResults("primes23", p23num, p23max, p23time)
+
+    #(pnum, pmax, ptime) = runSieve("primes235", limit)
+    #displayResults("primes235", pnum, pmax, ptime)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

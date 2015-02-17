@@ -19,10 +19,14 @@ def eratosthenes2(n)
     nums[0] = false     #1 is not prime.
     nums[1] = true      #3 is prime.
 
+    puts n
+    puts nums.inspect
+
     #Outer loop and both inner loops are skipping multiples of 2 and 3.
     #Outer loop checks i * i > n, same as i > Math.sqrt(n)
     i = 5
     until (m = i * i) > n
+        print "i: " + i.to_s + ", m: " + m.to_s + "\n"
         if nums[i >> 1]
             i_times_2 = i << 1
             i_times_4 = i << 2
@@ -47,6 +51,8 @@ def eratosthenes2(n)
         end
         i += 4
     end
+
+    puts nums.inspect
 
     primes = [2]
     nums.each_index {|i| primes << (i * 2 + 1) if nums[i]}
