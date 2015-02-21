@@ -11,9 +11,9 @@ Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
 Java              1.61s               0.559s                   0.386s
 Go                1.39s               0.564s                   0.431s
+D                 1.26s               0.535s                   0.494s
 C                 1.30s               0.546s                   0.349s
 C(-O3)            1.24s               0.535s                   0.352s
-D                 1.26s               0.535s
 --------------------------------------------------------------------------------         
 
 So for version 2.0 of this test, it shows that it pays to compile your language.
@@ -72,8 +72,8 @@ Limit: 2^30 = 1GB
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
 Java              61.9s                21.7s                    15.5s
 Go                52.9s                21.9s                    17.2s
+D                 48.9s                21.3s                    19.6s
 C(-O3)            48.2s                21.2s                    15.2s 
-D                 48.9s                21.3s
 --------------------------------------------------------------------------------
 
 So they still track together.  I think that this is about the extent that the exercise
@@ -84,7 +84,8 @@ as C.  It really is cool to see that Go works that well.
 
 Going back, I used the C implementation to write a fast Java implementation.  I was
 very impressed with the results of Java, as it was basically as fast as the fully
-compiled languages.
+compiled languages.  Also, I added in D because I could.  The results tracked with
+the others, since the implementation doesn't change.
 
 Fun though.  I'm looking forward to moving to a different machine and seeing the results
 there.
