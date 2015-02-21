@@ -1,4 +1,4 @@
-dmd -run dPrimres.d -n 10
+dmd -run dPrimes.d -n 10
     Runs the program in an interpreter basically
 
 dmd -vgc dPrimes.d

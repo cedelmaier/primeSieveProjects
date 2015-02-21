@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 	"os"
+	"runtime"
 	"runtime/pprof"
 	"strconv"
 	"time"
@@ -15,6 +16,7 @@ var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 var power = flag.String("n", "", "power of 2 for limit")
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	limit := uint64(4)
 	flag.Parse()
 	if *cpuprofile != "" {
