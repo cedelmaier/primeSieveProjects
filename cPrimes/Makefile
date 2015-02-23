@@ -1,8 +1,8 @@
-CC = gcc-4.9
+CC = gcc
 CPPFLAGS = -g -Wall -Wextra -std=c11 -O3
 
 cPrimes: cPrimes.o
-	$(CC) cPrimes.o -o cPrimes
+	$(CC) cPrimes.o -o cPrimes -lm
 
 cPrimes.o: cPrimes.c
 	$(CC) $(CPPFLAGS) -c cPrimes.c

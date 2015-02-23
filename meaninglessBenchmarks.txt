@@ -3,7 +3,7 @@ capabilities, different speeds and instructions sets, compilers, and on
 it really doesn't matter.  So here's mine.
 
 OSX Yosemite
-2.66 GHz Intel Core 2 Duo, 4MB RAM (It's from 2009, don't make fun of me)
+2.66 GHz Intel Core 2 Duo, 4GB RAM (It's from 2009, don't make fun of me)
 Limit: 2^25 = 33554432 
 --------------------------------------------------------------------------------
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
@@ -15,6 +15,17 @@ D                 1.26s               0.535s                   0.494s
 C                 1.30s               0.546s                   0.349s
 C(-O3)            1.24s               0.535s                   0.352s
 --------------------------------------------------------------------------------         
+
+Linux Mint 17.1
+Intel Core i7-2760QM 2.4GHZ, 8GB RAM
+--------------------------------------------------------------------------------
+        Basic Algorithm    2wheel(odds only)    23wheel      235wheel
+Java              0.76s               0.167s                   0.105s
+Go                0.52s               0.180s                   0.115s
+D                 0.44s               0.164s                   0.102s
+C(-O3)            0.42s               0.163s                   0.093s
+--------------------------------------------------------------------------------
+
 
 So for version 2.0 of this test, it shows that it pays to compile your language.
 Really it is somewhat unfair, as there is no way that ruby or python could compete
@@ -74,6 +85,11 @@ Java              61.9s                21.7s                    15.5s
 Go                52.9s                21.9s                    17.2s
 D                 48.9s                21.3s                    19.6s
 C(-O3)            48.2s                21.2s                    15.2s 
+--------------------------------------------------------------------------------
+Java              29.6s                6.53s                    4.87s
+Go                20.3s                6.94s                    5.52s
+D                 17.2s                6.47s                    4.98s
+C(-O3)            16.6s                6.36s                    4.77s
 --------------------------------------------------------------------------------
 
 So they still track together.  I think that this is about the extent that the exercise
