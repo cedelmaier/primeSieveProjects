@@ -1,0 +1,9 @@
+[package]
+
+name = "rustPrimes"
+version = "0.0.1"
+authors = ["Christopher Edelmaier <christopher.edelmaier@gmail.com>"]
+
+[dependencies]
+docopt = "*"
+rustc-serialize = "*"  # if you're using `derive(RustcDecodable)`
