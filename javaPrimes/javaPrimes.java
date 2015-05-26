@@ -49,21 +49,22 @@ public class javaPrimes {
 	}
 
 	public static void eratosthenes(int limit, primeResults results) {
-		int pc = 4;
+		int pc = 0;
 		int maxprime = 7;
 
 		boolean []nums = new boolean[(int)limit];
 		Arrays.fill(nums, true);
 
-		for(int i = 2; i < Math.sqrt(limit); i++) {
-        	for(int j = i*i; j < limit; j += i) {
-        	    if(nums[i]) {
-        	        nums[j] = false;
-        	    }
-        	}
-    	}
+        nums[0] = false;
+        nums[1] = false;
 
-    	pc -= 6;
+		for(int i = 2; i < Math.sqrt(limit); i++) {
+            if(nums[i]) {
+        	   for(int j = i*i; j < limit; j += i) {
+        	       nums[j] = false;
+        	   }
+            }
+    	}
 
     	for(int i = 0; i < limit; i++) {
     	    if(nums[i]) {

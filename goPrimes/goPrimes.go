@@ -63,9 +63,9 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 
 	for i := uint64(2); i < uint64(math.Sqrt(float64(limit))); i++ {
 		//fmt.Printf("\ti = %v\n", i)
-		for j := uint64(i * i); j < limit; j += i {
-			//fmt.Printf("\t\tj = %v\n", j)
-			if nums[i] {
+		if nums[i] {
+			for j := uint64(i * i); j < limit; j += i {
+				//fmt.Printf("\t\tj = %v\n", j)
 				nums[j] = false
 			}
 		}
@@ -79,9 +79,6 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 			maxprime = uint64(n)
 		}
 	}
-
-	//remove the first two from pc
-	pc -= 2
 
 	return pc, maxprime
 }

@@ -1,61 +1,71 @@
-extern crate "rustc-serialize" as rustc_serialize;
-extern crate docopt;
+/// Eratosthenes prime sieve program
+/// Mostly used as a programming learning experience
+extern crate num;
 
-use docopt::Docopt;
-use std::num::Float;
-use std::iter::range_step_inclusive;
-
-// Write the usage string
-// As a note, has to match exactly!
-static USAGE: &'static str = "
-USAGE: rustPrimes <n>
-";
-
-#[derive(RustcDecodable, Debug)]
-struct Args {
-    arg_n: i32,
-}
+use num::pow;
+use num::iter::range;
+use num::iter::range_step;
 
 fn main() {
-    let args: Args = Docopt::new(USAGE)
-                            .and_then(|d| d.decode())
-                            .unwrap_or_else(|e| e.exit());
+    // The hint hat cmd_args will be a vector of type _ 
+    // which is a placeholder for the type, which only 
+    // rust knows.  The args() is the normal topography
+    // of the location on the machine and what the program
+    // was called with.  The map is an iterator adaptor.
+    // it returns each x with to_string being called on it
+    // and then finally collected into our vector
+    let cmd_args: Vec<_> = std::env::args()
+        .map(|x| x.to_string())
+        .collect();
+    println!("Hello, world: {:?}", cmd_args);
 
-    let limit: u64 = (2f64).powi(args.arg_n) as u64;
-    println!("{:?}, limit: {}", args, limit);
+    // Cast to our u64 limit
+    // Parse the first arg (no checking) into a u64
+    // Then use the power to raise 2^num for the limit
+    let input_num = cmd_args[1].parse::<u64>();
+    let limit:usize = pow(2u64, input_num.unwrap() as usize) as usize;
 
-    //Call eratosthenes
-    eratosthenes(limit);
+    println!("Limit: {}", limit);
+
+    // Use destructuring to bind the two variables to eratosthenes
+    let (era_pc, era_max) = eratosthenes(limit);
+    println!("Eratosthenes");
+    println!("\tPrimesCounted: {}", era_pc);
+    println!("\tMax prime: {}", era_max);
 }
 
-fn eratosthenes(n: u64) {
-    println!("Eratosthenes");
+// Basic eratosthenes functin that takes a limit and counts all
+// all of the prime numbers below it
+fn eratosthenes(limit: usize) -> (u64, u64) {
+    let mut pc: u64 = 0;
+    let mut maxprime: u64 = 7;
 
-    let mut pc = 0u64;
-    let mut maxprime = 7u64;
+    // Allocate the array and initialize
+    let mut primes = vec![true; limit];
+    primes[0] = false;
+    primes[1] = false;
 
-    //set the whole vector to true a priori
-    let mut nums = vec![true; n as usize];
-    //Set the first set of nums to false for 0,1
-    nums[0] = false;
-    nums[1] = false;
-
-    let limit: u64 = (n as f64).sqrt() as u64;
-    for i in 2..limit {
-        for j in range_step_inclusive(i*i, n-1, i) {
-            if nums[i as usize] {
-                nums[j as usize] = false;
+    let slimit = (limit as f64).sqrt() as usize;
+    for i in range(2, slimit) {
+        if primes[i] {
+            for j in num::iter::range_step(i*i, limit, i) {
+                primes[j] = false;
             }
         }
     }
 
-    for x in 2..n {
-        if nums[x as usize] {
-            pc += 1;
-            maxprime = x;
+    //let testp: Vec<usize> = primes.iter()
+    //                      .enumerate()
+    //                      .filter_map(|(pr, &is_pr)| if is_pr { Some(pr) } else {None} )
+    //                      .collect();
+    //println!("{:?}",testp);
+
+    for p in (0..limit) {
+        if primes[p] {
+            pc = pc + 1;
+            maxprime = p as u64;
         }
     }
 
-    println!("n = {}, pc = {}, maxprime = {}", n, pc, maxprime);
-    //println!("nums: {:?}", nums);
+    (pc, maxprime)
 }

@@ -48,9 +48,12 @@ Tuple!(uint, uint) eratosthenes(uint limit) {
     bool[] nums = new bool[limit];
     nums[] = true;
 
+    nums[0] = false;
+    nums[1] = false;
+
     for(uint i = 2; i < sqrt(cast(float)limit); i++) {
-        for(uint j = i*i; j < limit; j += i) {
-            if(nums[i]) {
+        if(nums[i]) {
+            for(uint j = i*i; j < limit; j += i) {
                 nums[j] = false;
             }
         }
@@ -63,8 +66,6 @@ Tuple!(uint, uint) eratosthenes(uint limit) {
             maxprime = i;
         }
     }
-
-    pc -= 2;
 
     return tuple(pc, maxprime);
 }

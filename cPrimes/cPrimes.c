@@ -73,7 +73,7 @@ primeResults eratosthenes(unsigned int limit) {
     unsigned int i, j;
     primeResults results;
 
-    results.pc = 4;
+    results.pc = 0;
     results.maxprime = 7;
 
     //1 is true
@@ -82,9 +82,12 @@ primeResults eratosthenes(unsigned int limit) {
     char* nums = (char*)malloc(limit * sizeof(char));
     memset(nums, 1, limit);
 
+    nums[0] = 0;
+    nums[1] = 0;
+
     for(i = 2; i < sqrt(limit); i++) {
-        for(j = i*i; j < limit; j += i) {
-            if(nums[i]) {
+        if(nums[i]) {
+            for(j = i*i; j < limit; j += i) {
                 nums[j] = 0;
             }
         }
@@ -97,7 +100,7 @@ primeResults eratosthenes(unsigned int limit) {
         }
     }
 
-    results.pc = results.pc - 4 - 2;
+    results.pc = results.pc ;
     free(nums);
     return(results);
 }
