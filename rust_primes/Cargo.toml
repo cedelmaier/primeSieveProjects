@@ -1,5 +1,5 @@
 [package]
-name = "rustPrimes"
+name = "rust_primes"
 version = "0.1.0"
 authors = ["Christopher Edelmaier <christopher.edelmaier@gmail.com>"]
 
