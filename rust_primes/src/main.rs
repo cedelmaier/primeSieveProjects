@@ -30,5 +30,9 @@ fn main() {
     println!("\tMaxPrime: {}", p2_max);
 
     let (p235_pc, p235_max) = primes235(limit);
+
+    println!("Primes235");
+    println!("\tPrimes Counted: {}", p235_pc);
+    println!("\tMaxPrime: {}", p235_max);
 }
 

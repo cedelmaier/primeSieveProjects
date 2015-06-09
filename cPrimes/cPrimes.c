@@ -100,7 +100,6 @@ primeResults eratosthenes(unsigned int limit) {
         }
     }
 
-    results.pc = results.pc ;
     free(nums);
     return(results);
 }

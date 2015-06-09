@@ -9,12 +9,12 @@ Limit: 2^25 = 33554432
         Basic Algorithm    2wheel(odds only)    23wheel      235wheel
 Ruby             16.79s                          4.829s
 Python           12.56s                3.88s                   2.248s
-Java              1.61s               0.559s                   0.386s
-Go                1.39s               0.564s                   0.431s
-D                 1.26s               0.535s                   0.494s
-C                 1.30s               0.546s                   0.349s
-C(-O3)            1.09s               0.535s                   0.352s
-Rust 1.0.0        1.17s
+Java              1.13s               0.563s                   0.370s
+Go                1.13s               0.551s                   0.414s
+D                 1.11s               0.537s                   0.478s
+C                 1.30s               0.579s                   0.411s
+C(-O3)            1.09s               0.524s                   0.346s
+Rust 1.2.0        1.12s               0.532s                   0.341s
 --------------------------------------------------------------------------------         
 
 Linux Mint 17.1
@@ -41,7 +41,7 @@ my first implementation, so it holds a special place in my heart.
 
 Python's performance is quite a bit better than Ruby's.  It gies about a 33% increse 
 in the throughput, and the odds only very beats the 23 wheel of Ruby's.  Comparing 
-the basic algorithm with the 235 whee optimization is over a 300% speedup (322.5% or so).
+the basic algorithm with the 235 wheel optimization is over a 300% speedup (322.5% or so).
 The 235 wheel is also much more compilcated to code, as it requires a lot of special 
 attention to very subtle tricks.
 
@@ -77,6 +77,12 @@ For now, hands down, the fastest language is C.  But again, I was very impressed
 with how Go held up again it.  I might try pushing the compiled languages to higher
 limits and checking the speeds, but that could wind up breaking a lot of things as
 we get cloesr to the 32bit barrier.
+
+In version 2 of the test, I fixed a bug that led to slight performance improvements
+across the board.  I also added a full Rust set.  The new king is Rust, which runs
+slightly faster than C, which I found interesting.  The difference is miniscule,
+so we would have to move up to the 32bit barrier to see if it splits the difference
+any better.
 
 Here are the results for the two compiled languages at the gigabyte limit.
 Limit: 2^30 = 1GB 

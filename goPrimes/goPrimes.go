@@ -62,10 +62,8 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 	nums[1] = true
 
 	for i := uint64(2); i < uint64(math.Sqrt(float64(limit))); i++ {
-		//fmt.Printf("\ti = %v\n", i)
 		if nums[i] {
 			for j := uint64(i * i); j < limit; j += i {
-				//fmt.Printf("\t\tj = %v\n", j)
 				nums[j] = false
 			}
 		}
@@ -133,23 +131,18 @@ func iprimes2(limit uint64) (uint64, uint64) {
 	maxprime := uint64(1)
 
 	for i := uint64(0); i < uint64(math.Floor((math.Sqrt(float64(limit))-3)/2)+1); i++ {
-		//fmt.Printf("outeri: %v\n", i)
 		if buf[i] {
 			p := i + i + 3
 			s := p*(i+1) + i
-			//fmt.Printf("p: %v, s: %v\n", p, s)
 			//Get every other item, starting at s stepping by p
 			for j := s; j < uint64(len(buf)); j += p {
-				//fmt.Printf("Setting %v to 0\n", j)
 				buf[j] = false
 			}
-			//fmt.Printf("buf: %v\n", buf)
 		}
 	}
 
 	for i := uint64(0); i < (lmtbf + 1); i++ {
 		if buf[i] {
-			//fmt.Printf("buf[%v] = %v\n", i, i+i+3)
 			pc++
 			maxprime = i + i + 3
 		}
@@ -197,7 +190,7 @@ func primes235(limit uint64) (uint64, uint64) {
 		} //buf loop
 	} //i loop
 
-	pc := int64(4 - 1)
+	pc := int64(3)
 	maxprime := int64(7)
 
 	for i := int64(0); i < int64(lmtbf-6+(ndxs[(limit-7)%30])); i++ {

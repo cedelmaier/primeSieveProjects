@@ -129,17 +129,17 @@ def main(argv):
     sys.stdout.write("Limit: " + str(limit) + "\n")
     sys.stdout.flush()
 
-    #(e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
-    #displayResults("Eratosthenes2", e2num, e2max, e2time)
+    (e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
+    displayResults("Eratosthenes2", e2num, e2max, e2time)
 
     #(ip2num, ip2max, ip2time) = runSieve("iprimes2", limit)
     #displayResults("iprimes2", ip2num, ip2max, ip2time)
 
-    (p23num, p23max, p23time) = runSieve("primes23", limit)
-    displayResults("primes23", p23num, p23max, p23time)
+    #(p23num, p23max, p23time) = runSieve("primes23", limit)
+    #displayResults("primes23", p23num, p23max, p23time)
 
-    #(pnum, pmax, ptime) = runSieve("primes235", limit)
-    #displayResults("primes235", pnum, pmax, ptime)
+    (pnum, pmax, ptime) = runSieve("primes235", limit)
+    displayResults("primes235", pnum, pmax, ptime)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
