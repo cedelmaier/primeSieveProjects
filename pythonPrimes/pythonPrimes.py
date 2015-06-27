@@ -132,8 +132,8 @@ def main(argv):
     (e2num, e2max, e2time) = runSieve("eratosthenes2", limit)
     displayResults("Eratosthenes2", e2num, e2max, e2time)
 
-    #(ip2num, ip2max, ip2time) = runSieve("iprimes2", limit)
-    #displayResults("iprimes2", ip2num, ip2max, ip2time)
+    (ip2num, ip2max, ip2time) = runSieve("iprimes2", limit)
+    displayResults("iprimes2", ip2num, ip2max, ip2time)
 
     #(p23num, p23max, p23time) = runSieve("primes23", limit)
     #displayResults("primes23", p23num, p23max, p23time)

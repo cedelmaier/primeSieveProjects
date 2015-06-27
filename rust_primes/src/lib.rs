@@ -78,7 +78,7 @@ pub fn primes235(limit: usize) -> (u64, u64) {
             let p = 30 * (i >> 3) + mod_primes[ci];
             let mut s = p * p - 7;
             let p8 = p << 3;
-            for j in 0..8 {
+            for _ in 0..8 {
                 let c = (f64::floor((s as f64) / 30.0) as usize) * 8 + ndxs[s % 30];
                 for jj in num::iter::range_step(c, lmtbf+1, p8) {
                     primes[jj] = false;
