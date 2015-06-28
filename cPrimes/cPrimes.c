@@ -1,9 +1,8 @@
 /*
 Christopher Edelmaier
 C implementation of sive of Eratosthenes
-Do not use make with optimizations turned on, as there is something in 
-iprimes2 that suddely breaks some rules, probably that we're passing
-back a structure instead of a tuple.
+Have to use volatile ints for the return values,
+otherwise they get optimized away!
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,18 +24,15 @@ primeResults iprimes2(unsigned int limit);
 primeResults primes235(unsigned int limit);
 
 int main(int argc, char* argv[]) {
-    unsigned int limit;
+    unsigned int limit = 10;
     primeResults eres, ip2, p235;
     double startTime, endTime, timeElapsed;
 
-    limit = 2;
-
     if(argc > 1) {
-        limit = limit << (atoi(argv[1])-1);
-    } else {
-        limit = limit << (10-1);
+        limit = (atoi(argv[1]));
     }
 
+    limit = 1 << limit;
     printf("Limit: %d\n", limit);
 
     startTime = (float)clock()/CLOCKS_PER_SEC;
@@ -46,7 +42,7 @@ int main(int argc, char* argv[]) {
 
     printf("Eratosthenes: %.4fms\n", 1000*timeElapsed);
     printf("\tPrimes counted: %d\n", eres.pc);
-    printf("\tMax prime: %d\n\n\n", eres.maxprime);
+    printf("\tMax prime: %d\n", eres.maxprime);
 
     startTime = (float)clock()/CLOCKS_PER_SEC;
     ip2 = iprimes2(limit);
@@ -55,7 +51,7 @@ int main(int argc, char* argv[]) {
 
     printf("Iprimes2: %.4fms\n", 1000*timeElapsed);
     printf("\tPrimes counted: %d\n", ip2.pc);
-    printf("\tMax prime: %d\n\n\n", ip2.maxprime);
+    printf("\tMax prime: %d\n", ip2.maxprime);
 
     startTime = (float)clock()/CLOCKS_PER_SEC;
     p235 = primes235(limit);
@@ -64,17 +60,16 @@ int main(int argc, char* argv[]) {
 
     printf("primes235: %.4fms\n", 1000*timeElapsed);
     printf("\tPrimes counted: %d\n", p235.pc);
-    printf("\tMax prime: %d\n\n\n", p235.maxprime);
+    printf("\tMax prime: %d\n", p235.maxprime);
 
     return EXIT_SUCCESS;
 }
 
 primeResults eratosthenes(unsigned int limit) {
+    // Passing the results by ref (pointers) doesn't
+    // seem to make this any faster
     unsigned int i, j;
-    primeResults results;
-
-    results.pc = 0;
-    results.maxprime = 7;
+    primeResults results = { .pc = 0, .maxprime = 7 };
 
     //1 is true
     //C doesn't like large arrays
@@ -108,7 +103,6 @@ primeResults iprimes2(unsigned int limit) {
     volatile unsigned int pc, maxprime;
     unsigned int lmtbf = (limit - 3) / 2;
     primeResults results;
-    results.pc = 0;
 
     pc = 1;
     maxprime = 0;
@@ -146,10 +140,8 @@ primeResults iprimes2(unsigned int limit) {
 
 primeResults primes235(unsigned int limit) {
     primeResults results;
-    results.pc = 0;
-    results.maxprime = 0;
-    volatile unsigned int pc = 0;
-    volatile unsigned int maxprime = 0;
+    volatile unsigned int pc;
+    volatile unsigned int maxprime;
     unsigned int lmtbf = floor((limit + 23 ) / 30) * 8 - 1;
     unsigned int lmtsqrt = (unsigned int)(sqrt(limit) - 7);
     //This needs to be signed!
@@ -172,10 +164,10 @@ primeResults primes235(unsigned int limit) {
             unsigned int p = 30*(i>>3) + modPrimes[ci];
             unsigned int s = p * p - 7;
             unsigned int p8 = p << 3;
-	    //printf("i: %d, ci: %d, p: %d, s: %d, p8: %d\n", i, ci, p, s, p8);
+            //printf("i: %d, ci: %d, p: %d, s: %d, p8: %d\n", i, ci, p, s, p8);
             for(unsigned int j = 0; j < 8; j++) {
                 unsigned int c = floor(s/30)*8 + ndxs[s%30];
-		//printf("\tj: %d, c: %d\n", j, c);
+                //printf("\tj: %d, c: %d\n", j, c);
                 for(unsigned int jj = c; jj < lmtbf+1; jj += p8) {
                     buf[jj] = 0;
                 }

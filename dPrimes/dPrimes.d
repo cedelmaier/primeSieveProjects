@@ -99,15 +99,7 @@ Tuple!(uint, uint) iprimes2(uint limit) {
 Tuple!(uint, uint) primes235(uint limit) {
     uint lmtbf = (limit + 23 ) / 30 * 8 - 1;
     long lmtsqrt_l = cast(long)(sqrt(cast(float)limit) - 7);
-    long lmtmod = lmtsqrt_l % 30;
-    long fIndex = 0;
-    if(lmtmod < 0){
-        fIndex = 30 + lmtmod;
-    } else {
-        fIndex = lmtmod;
-    }
-    uint lmtsqrt = cast(uint)(lmtsqrt_l/30*8 + ndxs[fIndex]);
-
+    uint lmtsqrt = cast(uint)(lmtsqrt_l/30*8 + ndxs[lmtsqrt_l % 30]);
     bool[] buf = new bool[lmtbf+1];
     buf[] = true;
 

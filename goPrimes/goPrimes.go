@@ -38,10 +38,6 @@ func main() {
 	fmt.Printf("\tPrimes counted: %v\n", pc)
 	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
 
-	//pc, maxprime = eratosthenes32(limit)
-	//fmt.Printf("\tPrimes counted: %v\n", pc)
-	//fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
-
 	pc, maxprime = iprimes2(limit)
 	fmt.Printf("\tPrimes counted: %v\n", pc)
 	fmt.Printf("\tMax prime: %v\n\n\n", maxprime)
@@ -58,8 +54,8 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 	for i := range nums {
 		nums[i] = true
 	}
-	nums[0] = true
-	nums[1] = true
+	nums[0] = false
+	nums[1] = false
 
 	for i := uint64(2); i < uint64(math.Sqrt(float64(limit))); i++ {
 		if nums[i] {
@@ -81,46 +77,9 @@ func eratosthenes(limit uint64) (uint64, uint64) {
 	return pc, maxprime
 }
 
-func eratosthenes32(limit_64 uint64) (uint64, uint64) {
-	defer timeTrack(time.Now(), "Eratosthenes32")
-
-	limit := uint32(limit_64)
-	nums := make([]bool, limit) //creates a false array
-	for i := range nums {
-		nums[i] = true
-	}
-	nums[0] = true
-	nums[1] = true
-
-	for i := uint32(2); i < uint32(math.Sqrt(float64(limit))); i++ {
-		//fmt.Printf("\ti = %v\n", i)
-		for j := uint32(i * i); j < limit; j += i {
-			//fmt.Printf("\t\tj = %v\n", j)
-			if nums[i] {
-				nums[j] = false
-			}
-		}
-	}
-
-	pc, maxprime := uint32(0), uint32(0)
-
-	for n, num := range nums {
-		if num {
-			pc++
-			maxprime = uint32(n)
-		}
-	}
-
-	//remove the first two from pc
-	pc -= 2
-
-	return uint64(pc), uint64(maxprime)
-}
-
 func iprimes2(limit uint64) (uint64, uint64) {
 	defer timeTrack(time.Now(), "Iprimes2")
 	lmtbf := uint64(math.Floor(float64((limit - 3) / 2)))
-	//fmt.Printf("lmtbf: %v\n", lmtbf)
 
 	buf := make([]bool, lmtbf+1)
 	for i := range buf {
@@ -157,17 +116,9 @@ func primes235(limit uint64) (uint64, uint64) {
 	gaps := []float64{4, 2, 4, 2, 4, 6, 2, 6, 4, 2, 4, 2, 4, 6, 2, 6}
 	ndxs := []float64{0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7}
 
-	//Have to explicitly do everything as floats, or the rounding breaks everything
 	lmtbf := math.Floor((float64(limit)+23)/30)*8 - 1
 	lmtsqrt := math.Floor(math.Sqrt(float64(limit))) - 7
-	lmtmod := int64(lmtsqrt) % 30
-	var fIndex int64
-	if lmtmod < 0 {
-		fIndex = 30 + lmtmod
-	} else {
-		fIndex = lmtmod
-	}
-	lmtsqrt = math.Floor(lmtsqrt/30)*8 + ndxs[fIndex]
+	lmtsqrt = math.Floor(lmtsqrt/30)*8 + ndxs[int64(lmtsqrt)%30]
 	buf := make([]bool, int64(lmtbf)+1)
 	for i := int64(0); i < int64(lmtbf)+1; i++ {
 		buf[i] = true

@@ -49,9 +49,6 @@ public class javaPrimes {
 	}
 
 	public static void eratosthenes(int limit, primeResults results) {
-		int pc = 0;
-		int maxprime = 7;
-
 		boolean []nums = new boolean[(int)limit];
 		Arrays.fill(nums, true);
 
@@ -68,18 +65,15 @@ public class javaPrimes {
 
     	for(int i = 0; i < limit; i++) {
     	    if(nums[i]) {
-    	        pc++;
-    	        maxprime = i;
+    	        results.pc++;
+    	        results.maxprime = i;
     	    }
     	}
-
-    	results.pc = pc;
-    	results.maxprime = maxprime;
 	}
 
 	public static void iprimes2(int limit, primeResults results) {
-		int pc = 1;
-		int maxprime = 7;
+		results.pc = 1;
+		results.maxprime = 7;
 		int lmtbf = (limit - 3) / 2;
 
 		boolean []buf = new boolean[lmtbf+1];
@@ -100,18 +94,15 @@ public class javaPrimes {
 
     	for(int i = 0; i < lmtbf+1; i++) {
     	    if(buf[i]) {
-    	        pc++;
-    	        maxprime = i + i + 3;
+    	        results.pc++;
+    	        results.maxprime = i + i + 3;
     	    }
     	}
-
-    	results.pc = pc;
-    	results.maxprime = maxprime;
 	}
 
 	public static void primes235(int limit, primeResults results) {
-		int pc = 3;
-		int maxprime = 7;
+		results.pc = 3;
+		results.maxprime = 7;
 
 		//Just hang onto these guys, its basically interpreted anyway
 		int modPrimes[] = {7, 11, 13, 17, 19, 23, 29, 31};
@@ -152,13 +143,10 @@ public class javaPrimes {
 
     	for(int i = 0; i < lmtbf-6+(ndxs[(limit-7)%30]); i++) {
     	    if(buf[i]) {
-    	        pc++;
-    	        maxprime = 30*(i>>3) + modPrimes[i&7];
+    	        results.pc++;
+    	        results.maxprime = 30*(i>>3) + modPrimes[i&7];
     	    }
     	}
-
-		results.pc = pc;
-		results.maxprime = maxprime;
 	}
 }
 
