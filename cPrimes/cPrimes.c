@@ -163,6 +163,7 @@ primeResults primes235(unsigned int limit) {
     lmtsqrt = floor(lmtsqrt/30)*8 + ndxs[fIndex];
     char* buf = (char*)malloc((lmtbf+1)*sizeof(char));
     memset(buf,1,lmtbf+1);
+    //printf("lmtbf: %d, fIndex: %d, lmtsqrt: %d\n", lmtbf, fIndex, lmtsqrt);
 
     //Algorithm
     for(unsigned int i = 0; i < lmtsqrt+1; i++) {
@@ -171,8 +172,10 @@ primeResults primes235(unsigned int limit) {
             unsigned int p = 30*(i>>3) + modPrimes[ci];
             unsigned int s = p * p - 7;
             unsigned int p8 = p << 3;
+	    //printf("i: %d, ci: %d, p: %d, s: %d, p8: %d\n", i, ci, p, s, p8);
             for(unsigned int j = 0; j < 8; j++) {
                 unsigned int c = floor(s/30)*8 + ndxs[s%30];
+		//printf("\tj: %d, c: %d\n", j, c);
                 for(unsigned int jj = c; jj < lmtbf+1; jj += p8) {
                     buf[jj] = 0;
                 }
