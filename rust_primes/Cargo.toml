@@ -5,3 +5,4 @@ authors = ["Christopher Edelmaier <christopher.edelmaier@gmail.com>"]
 
 [dependencies]
 num = "*"
+time = "*"
