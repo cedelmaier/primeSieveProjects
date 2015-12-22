@@ -13,3 +13,5 @@ echo Nim Clang
 ../xtime.rb ./primes_nim_clang 30
 echo Nim Gcc
 ../xtime.rb ./primes_nim_gcc 30
+echo Rust
+../xtime.rb ./primes_rs 30
