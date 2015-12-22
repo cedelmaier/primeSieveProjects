@@ -9,6 +9,8 @@ echo D LDC
 ../xtime.rb ./primes_d_ldc -n 30
 echo Go
 ../xtime.rb ./primes_go -n 30
+echo Java
+../xtime.rb java javaPrimes 30
 echo Nim Clang
 ../xtime.rb ./primes_nim_clang 30
 echo Nim Gcc
