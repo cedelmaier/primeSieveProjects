@@ -1,5 +1,7 @@
 echo C
 ../xtime.rb ./primes_c 30
+echo Crystal
+../xtime.rb ./primes_cr 30
 echo D
 ../xtime.rb ./primes_d -n 30
 #something is screwed up in gdc math
